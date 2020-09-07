@@ -314,6 +314,9 @@ def buy(args, coins, cbpro_client, db_session):
     print("fiat_balances={}".format(fiat_balances))
 
     fiat_amount = fiat_balances[args.fiat_currency]
+    print("fiat_amount={} (original)".format(fiat_amount))
+    fiat_amount = min(fiat_amount, args.max_investment)
+    print("fiat_amount={} (max investment)".format(fiat_amount))
     fee_amount = args.base_fee * fiat_amount
     print("reserving {} for fees, base_fee={}".format(fee_amount, args.base_fee))
     fiat_amount -= fee_amount
@@ -347,16 +350,26 @@ def main():
     {
       "BTC":{
         "name":"Bitcoin",
-        "withdrawal_address":null,
+        "withdrawal_address":"",
         "external_balance":0
       },
       "ETH":{
         "name":"Ethereum",
-        "withdrawal_address":null,
+        "withdrawal_address":"",
         "external_balance":0
       },
       "LTC":{
         "name":"Litecoin",
+        "withdrawal_address":"",
+        "external_balance":0
+      },
+      "BCH":{
+        "name":"Bitcoin Cash",
+        "withdrawal_address":"",
+        "external_balance":0
+      },
+      "XRP":{
+        "name":"XRP",
         "withdrawal_address":null,
         "external_balance":0
       }
@@ -398,6 +411,12 @@ def main():
     )
     parser.add_argument(
         "--fiat-currency", help="Fiat currency (default: USD)", default="USD"
+    )
+    parser.add_argument(
+        "--max-investment",
+        help="Max fiat currency amount to invest on each execution (default: 100)",
+        type=float,
+        default="USD",
     )
     parser.add_argument(
         "--withdrawal-amount",
