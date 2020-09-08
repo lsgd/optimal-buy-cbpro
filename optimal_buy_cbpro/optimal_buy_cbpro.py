@@ -316,6 +316,7 @@ def buy(args, coins, cbpro_client, db_session):
     fiat_amount = fiat_balances[args.fiat_currency]
     print("fiat_amount={} (original)".format(fiat_amount))
     fiat_amount = min(fiat_amount, args.max_investment)
+    fiat_balances[args.fiat_currency] = fiat_amount
     print("fiat_amount={} (max investment)".format(fiat_amount))
     fee_amount = args.base_fee * fiat_amount
     print("reserving {} for fees, base_fee={}".format(fee_amount, args.base_fee))
@@ -484,5 +485,5 @@ def main():
             backoff = backoff * 2
 
 
-if __name__ == "main":
+if __name__ in ("main", "__main__"):
     main()
