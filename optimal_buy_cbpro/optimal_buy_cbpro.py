@@ -355,22 +355,22 @@ def main():
     {
       "BTC":{
         "name":"Bitcoin",
-        "withdrawal_address":"",
+        "withdrawal_address":null,
         "external_balance":0
       },
       "ETH":{
         "name":"Ethereum",
-        "withdrawal_address":"",
+        "withdrawal_address":null,
         "external_balance":0
       },
       "LTC":{
         "name":"Litecoin",
-        "withdrawal_address":"",
+        "withdrawal_address":null,
         "external_balance":0
       },
       "BCH":{
         "name":"Bitcoin Cash",
-        "withdrawal_address":"",
+        "withdrawal_address":null,
         "external_balance":0
       },
       "XRP":{
