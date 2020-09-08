@@ -343,6 +343,10 @@ def buy(args, coins, cbpro_client, db_session):
             "only {} {} fiat balance remaining, withdrawing"
             " coins without buying".format(fiat_amount, args.fiat_currency)
         )
+        if args.no_withdrawing:
+            print("withdrawing is disabled!")
+            print("CANCEL")
+            return
         withdraw(coins, accounts, cbpro_client, db_session)
 
 
@@ -451,7 +455,11 @@ def main():
         type=float,
         default=0.0015,
     )
-
+    parser.add_argument("--no-withdrawing",
+                        help="Disable withdrawing if fiat currency is low.",
+                        default=False,
+                        action="store_true",
+                        )
     args = parser.parse_args()
     coins = json.loads(args.coins)
     print("--coins='{}'".format(json.dumps(coins, separators=(",", ":"))))
